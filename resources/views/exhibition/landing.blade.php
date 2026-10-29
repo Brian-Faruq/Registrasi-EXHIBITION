@@ -87,7 +87,7 @@
                             <i class="fa-solid fa-right-to-bracket mr-1.5"></i> Masuk
                         </a>
                         @if (Route::has('register'))
-                            <a href="{{ route('register') }}" class="hidden sm:inline-block bg-orangeGold hover:bg-orangeHover text-navyAccent font-bold px-5 py-2.5 rounded-xl shadow-lg transition transform hover:-translate-y-0.5">
+                            <a href="{{ route('registration.create') }}" class="hidden sm:inline-block bg-orangeGold hover:bg-orangeHover text-navyAccent font-bold px-5 py-2.5 rounded-xl shadow-lg transition transform hover:-translate-y-0.5">
                                 Daftar
                             </a>
                         @endif
@@ -229,7 +229,7 @@
                     </div>
                     <div class="p-8 bg-gray-50 border-t border-gray-100">
                         @auth
-                            <a href="{{ route('registration.index', ['ticket_id' => $ticket->id]) }}" 
+                            <a href="{{ route('registrasi.create', ['ticket_id' => $ticket->id]) }}" 
                                class="block w-full text-center bg-tealPrimary hover:bg-tealDark text-white font-bold py-3.5 rounded-xl shadow-md transition">
                                 Pilih Tiket Ini
                             </a>
@@ -252,7 +252,7 @@
                         <div class="text-4xl font-black text-navyAccent mb-6">Rp 150.000</div>
                     </div>
                     @auth
-                        <a href="{{ route('registration.index') }}" class="block w-full text-center bg-tealPrimary hover:bg-tealDark text-white font-bold py-3.5 rounded-xl shadow transition">Daftar Tiket Regular</a>
+                        <a href="{{ route('registrasi.create') }}" class="block w-full text-center bg-tealPrimary hover:bg-tealDark text-white font-bold py-3.5 rounded-xl shadow transition">Daftar Tiket Regular</a>
                     @else
                         <a href="{{ route('login') }}" class="block w-full text-center bg-navyAccent hover:bg-tealDark text-white font-bold py-3.5 rounded-xl shadow transition">
                             <i class="fa-solid fa-lock mr-2 text-xs"></i> Login untuk Membeli
