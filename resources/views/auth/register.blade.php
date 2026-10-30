@@ -39,10 +39,7 @@
         </div>
 
         <!-- Tab Navigasi Halaman -->
-        <div class="flex border-b border-gray-100 bg-gray-50/50 p-2">
-            <a href="{{ route('login') }}" class="flex-1 py-2.5 text-center text-xs font-semibold rounded-xl text-gray-500 hover:text-navyAccent transition">
-                <i class="fa-solid fa-right-to-bracket mr-1.5"></i> Masuk
-            </a>
+        <div class="flex border-b border-gray-100 bg-gray-50/50 p-4">
             <a href="{{ route('register') }}" class="flex-1 py-2.5 text-center text-xs font-extrabold rounded-xl bg-white text-navyAccent shadow-sm transition">
                 <i class="fa-solid fa-user-plus mr-1.5 text-tealPrimary"></i> Daftar Akun
             </a>

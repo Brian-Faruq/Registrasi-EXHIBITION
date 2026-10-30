@@ -41,25 +41,10 @@
             <div class="flex items-center justify-between h-20">
                 
                 <!-- BRAND & LOGO (SEKOLAH IMPIAN & PARENTCAMP) -->
-                <a href="#" class="flex items-center space-x-3 group">
-                    <!-- SVG Visual Logo Sekolah Impian dengan Animasi Float & Shadow -->
-                    <div class="relative w-12 h-12 bg-white rounded-2xl p-2 shadow-lg shadow-black/20 group-hover:scale-105 transition transform duration-300 animate-float flex items-center justify-center">
-                        <svg viewBox="0 0 100 100" class="w-full h-full">
-                            <!-- S Shape Cyan & Gradient -->
-                            <path d="M 50 10 C 25 10, 15 35, 45 50 C 75 65, 75 90, 45 90 C 25 90, 15 75, 15 75" fill="none" stroke="url(#cyanGrad)" stroke-width="14" stroke-linecap="round"/>
-                            <!-- S Shape Orange Ribbon -->
-                            <path d="M 50 10 C 75 10, 85 35, 55 50 C 25 65, 25 90, 55 90" fill="none" stroke="url(#orangeGrad)" stroke-width="12" stroke-linecap="round"/>
-                            <defs>
-                                <linearGradient id="cyanGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-                                    <stop offset="0%" stop-color="#00A896" />
-                                    <stop offset="100%" stop-color="#1D3557" />
-                                </linearGradient>
-                                <linearGradient id="orangeGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-                                    <stop offset="0%" stop-color="#F4A261" />
-                                    <stop offset="100%" stop-color="#E76F51" />
-                                </linearGradient>
-                            </defs>
-                        </svg>
+                <a href="landing.blade.php" class="flex items-center space-x-3 group">
+                   <!-- Contoh Penerapan Logo di Navbar/Header -->
+                    <div class="flex items-center space-x-3">
+                          <img src="{{ asset('images/sekolahimpian.png') }}" alt="Logo Sekolah Impian" class="h-10 w-auto object-contain">
                     </div>
                     <div class="flex flex-col">
                         <span class="text-xl font-extrabold tracking-tight text-white group-hover:text-orangeGold transition">
@@ -87,7 +72,7 @@
                             <i class="fa-solid fa-right-to-bracket mr-1.5"></i> Masuk
                         </a>
                         @if (Route::has('register'))
-                            <a href="{{ route('registration.create') }}" class="hidden sm:inline-block bg-orangeGold hover:bg-orangeHover text-navyAccent font-bold px-5 py-2.5 rounded-xl shadow-lg transition transform hover:-translate-y-0.5">
+                            <a href="{{ route('register') }}" class="hidden sm:inline-block bg-orangeGold hover:bg-orangeHover text-navyAccent font-bold px-5 py-2.5 rounded-xl shadow-lg transition transform hover:-translate-y-0.5">
                                 Daftar
                             </a>
                         @endif
@@ -172,35 +157,62 @@
                 </p>
             </div>
 
-            <div id="fasilitas" class="grid grid-cols-1 md:grid-cols-3 gap-8">
-                <!-- CARD 1 -->
-                <div class="bg-bgLight p-8 rounded-3xl border border-gray-100 hover:shadow-2xl hover:-translate-y-2 transition duration-300 group">
-                    <div class="w-16 h-16 bg-gradient-to-br from-tealPrimary to-tealDark text-white rounded-2xl flex items-center justify-center text-2xl mb-6 shadow-lg shadow-tealPrimary/30 group-hover:scale-110 transition">
-                        <i class="fa-solid fa-chalkboard-user"></i>
+            <!-- Pembungkus Utama Grid 3 Kolom yang Lebar dan Responsif -->
+<div class="w-full py-12">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+            
+            <!-- Card 1: Talkshow & Workshop -->
+            <div class="bg-white rounded-2xl p-6 shadow-lg flex flex-col justify-between transition-transform duration-300 hover:-translate-y-2">
+                <div>
+                    <!-- Foto Ilustrasi Card 1 -->
+                    <img src="{{ asset('images/talkshow.jpg') }}" alt="Talkshow" class="w-full h-48 object-cover rounded-xl mb-4">
+                    
+                    <!-- Icon Card 1 -->
+                    <div class="w-12 h-12 bg-teal-100 text-teal-600 rounded-xl flex items-center justify-center mb-4">
+                        <i class="fa-solid fa-chalkboard-user text-xl"></i>
                     </div>
-                    <h3 class="text-xl font-bold text-navyAccent mb-3 group-hover:text-tealPrimary transition">Talkshow & Workshop</h3>
-                    <p class="text-gray-600 leading-relaxed text-sm">Sesi interaktif dan tanya jawab langsung bersama dokter anak, psikolog keluarga, serta pakar pola asuh modern.</p>
-                </div>
-                <!-- CARD 2 -->
-                <div class="bg-bgLight p-8 rounded-3xl border border-gray-100 hover:shadow-2xl hover:-translate-y-2 transition duration-300 group">
-                    <div class="w-16 h-16 bg-gradient-to-br from-orangeGold to-orangeHover text-white rounded-2xl flex items-center justify-center text-2xl mb-6 shadow-lg shadow-orangeGold/30 group-hover:scale-110 transition">
-                        <i class="fa-solid fa-store"></i>
-                    </div>
-                    <h3 class="text-xl font-bold text-navyAccent mb-3 group-hover:text-orangeHover transition">Edu-Tech Booths</h3>
-                    <p class="text-gray-600 leading-relaxed text-sm">Pameran produk edukasi terbaru, perangkat lunak interaktif, mainan multisensori, hingga metode literasi koding usia dini.</p>
-                </div>
-                <!-- CARD 3 -->
-                <div class="bg-bgLight p-8 rounded-3xl border border-gray-100 hover:shadow-2xl hover:-translate-y-2 transition duration-300 group">
-                    <div class="w-16 h-16 bg-gradient-to-br from-navyAccent to-tealDark text-white rounded-2xl flex items-center justify-center text-2xl mb-6 shadow-lg shadow-navyAccent/30 group-hover:scale-110 transition">
-                        <i class="fa-solid fa-child-reaching"></i>
-                    </div>
-                    <h3 class="text-xl font-bold text-navyAccent mb-3 group-hover:text-tealPrimary transition">Kids Activity Zone</h3>
-                    <p class="text-gray-600 leading-relaxed text-sm">Area bermain dan kompetisi sensorik anak yang aman dan didampingi fasilitator berpengalaman saat orang tua mengikuti acara.</p>
+                    <h3 class="text-xl font-bold text-gray-800 mb-2">Talkshow & Workshop</h3>
+                    <p class="text-gray-600 text-sm">Sesi interaktif dan tanya jawab langsung bersama dokter anak, psikolog keluarga, serta pakar pola asuh modern.</p>
                 </div>
             </div>
-        </div>
-    </section>
 
+            <!-- Card 2: Edu-Tech Booths -->
+            <div class="bg-white rounded-2xl p-6 shadow-lg flex flex-col justify-between transition-transform duration-300 hover:-translate-y-2">
+                <div>
+                    <!-- Foto Ilustrasi Card 2 -->
+                    <img src="{{ asset('images/pameran.jpg') }}" alt="Edu-Tech" class="w-full h-48 object-cover rounded-xl mb-4">
+                    
+                    <!-- Icon Card 2 -->
+                    <div class="w-12 h-12 bg-orange-100 text-orange-600 rounded-xl flex items-center justify-center mb-4">
+                        <i class="fa-solid fa-store text-xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-800 mb-2">Edu-Tech Booths</h3>
+                    <p class="text-gray-600 text-sm">Pameran produk edukasi terbaru, perangkat lunak interaktif, mainan multisensori, hingga metode literasi koding usia dini.</p>
+                </div>
+            </div>
+
+            <!-- Card 3: Kids Activity Zone -->
+            <div class="bg-white rounded-2xl p-6 shadow-lg flex flex-col justify-between transition-transform duration-300 hover:-translate-y-2">
+                <div>
+                    <!-- Foto Ilustrasi Card 3 -->
+                    <img src="{{ asset('images/taman_anak.jpg') }}" alt="Kids Activity" class="w-full h-48 object-cover rounded-xl mb-4">
+                    
+                    <!-- Icon Card 3 (Puzzle) -->
+                    <div class="w-12 h-12 bg-blue-100 text-blue-600 rounded-xl flex items-center justify-center mb-4">
+                        <i class="fa-solid fa-puzzle-piece text-xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-800 mb-2">Kids Activity Zone</h3>
+                    <p class="text-gray-600 text-sm">Area bermain dan kompetisi sensorik anak yang aman dan didampingi fasilitator berpengalaman saat orang tua mengikuti acara.</p>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+ </section>
+ 
     <!-- PILIHAN TIKET SECTION -->
     <section id="tiket" class="py-24 bg-gradient-to-b from-bgLight to-tealPrimary/5">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -229,7 +241,7 @@
                     </div>
                     <div class="p-8 bg-gray-50 border-t border-gray-100">
                         @auth
-                            <a href="{{ route('registrasi.create', ['ticket_id' => $ticket->id]) }}" 
+                            <a href="{{ route('registration.index', ['ticket_id' => $ticket->id]) }}" 
                                class="block w-full text-center bg-tealPrimary hover:bg-tealDark text-white font-bold py-3.5 rounded-xl shadow-md transition">
                                 Pilih Tiket Ini
                             </a>
@@ -252,7 +264,7 @@
                         <div class="text-4xl font-black text-navyAccent mb-6">Rp 150.000</div>
                     </div>
                     @auth
-                        <a href="{{ route('registrasi.create') }}" class="block w-full text-center bg-tealPrimary hover:bg-tealDark text-white font-bold py-3.5 rounded-xl shadow transition">Daftar Tiket Regular</a>
+                        <a href="{{ route('registration.index') }}" class="block w-full text-center bg-tealPrimary hover:bg-tealDark text-white font-bold py-3.5 rounded-xl shadow transition">Daftar Tiket Regular</a>
                     @else
                         <a href="{{ route('login') }}" class="block w-full text-center bg-navyAccent hover:bg-tealDark text-white font-bold py-3.5 rounded-xl shadow transition">
                             <i class="fa-solid fa-lock mr-2 text-xs"></i> Login untuk Membeli

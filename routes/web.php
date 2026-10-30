@@ -1,37 +1,40 @@
 <?php
 
 use App\Http\Controllers\RegistrasiController;
-use App\Models\Paket;
-use App\Models\Registrasi;
+use App\Models\Ticket;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Route;
 
-/*
-|--------------------------------------------------------------------------
-| Web Routes - ParentCamp Exhibition
-|--------------------------------------------------------------------------
-*/
-
-// Rute Publik (Landing Page)
+// 1. Landing Page Utama
 Route::get('/', function () {
-    $tickets = Paket::all(); 
+    $tickets = Ticket::all();
     return view('exhibition.landing', compact('tickets'));
-})->name('landing')->name('exhibition.landing');
+})->name('exhibition.landing');
 
-// Halaman Autentikasi (Login & Register)
-Route::get('/login', fn() => view('auth.login'))->name('login');
-Route::get('/register', fn() => view('auth.register'))->name('register');
+// 2. Halaman Autentikasi (GET)
+Route::get('/login', function () {
+    return view('auth.login');
+})->name('login');
 
+Route::get('/register', function () {
+    return view('auth.register');
+})->name('register');
+
+// 3. Proses Register (Membuat User Baru & Otomatis Login)
 Route::post('/register', function (Request $request) {
     $request->validate([
-        'name' => 'required|string|max:255',
-        'phone' => 'required|string|max:15',
-        'email' => 'required|string|email|max:255|unique:users',
-        'password' => 'required|string|min:8|confirmed',
-    ]);
+    'name' => 'required|string|max:255',
+    'phone' => 'required|string|max:15',
+    'email' => 'required|string|email|max:255|unique:users',
+    'password' => 'required|string|min:8|confirmed',
+], [
+    'password.min' => 'Kata sandi minimal harus 8 karakter.',
+    'email.unique' => 'Email ini sudah terdaftar di sistem.',
+    'password.confirmed' => 'Konfirmasi kata sandi tidak cocok.',
+]);
 
     $user = User::create([
         'name' => $request->name,
@@ -39,12 +42,13 @@ Route::post('/register', function (Request $request) {
         'password' => Hash::make($request->password),
     ]);
 
-    Auth::login($user);
+    Auth::login($user); // Login otomatis setelah daftar
     $request->session()->regenerate();
 
     return redirect()->route('dashboard');
 })->name('register.process');
 
+// 4. Proses Login (Verifikasi Password & Catat Session)
 Route::post('/login', function (Request $request) {
     $credentials = $request->validate([
         'email' => ['required', 'email'],
@@ -53,7 +57,7 @@ Route::post('/login', function (Request $request) {
 
     if (Auth::attempt($credentials, $request->remember)) {
         $request->session()->regenerate();
-        return redirect()->intended('/dashboard');
+        return redirect()->intended('/dashboard'); // Berhasil masuk ke dashboard
     }
 
     return back()->withErrors([
@@ -61,6 +65,7 @@ Route::post('/login', function (Request $request) {
     ])->onlyInput('email');
 })->name('login.process');
 
+// 5. Rute Logout
 Route::post('/logout', function (Request $request) {
     Auth::logout();
     $request->session()->invalidate();
@@ -68,28 +73,17 @@ Route::post('/logout', function (Request $request) {
     return redirect('/');
 })->name('logout');
 
-
-// RUTE PENDAFTARAN PUBLIK (Diberikan nama alias lengkap agar terpanggil dengan benar)
-Route::get('/registrasi', [RegistrasiController::class, 'create'])
-    ->name('registrasi.create');
-
-
 // Area Terproteksi Middleware Auth (Wajib Login)
 Route::middleware(['auth'])->group(function () {
-    
-    // Dashboard Pengguna
     Route::get('/dashboard', function () {
-        $registrasi = Registrasi::where('user_id', Auth::id())->with('paket')->latest()->first();
-        return view('dashboard', compact('registrasi'));
+        return view('dashboard');
     })->name('dashboard');
 
-    // Proses Simpan Pendaftaran
+    // Mengarah ke form pendaftaran tiket yang sebelumnya dibuat
+    Route::get('/registrasi', [RegistrasiController::class, 'create'])->name('registration.index');
     Route::post('/registrasi', [RegistrasiController::class, 'store'])->name('registrasi.store');
-    
-    // Sukses & Cetak Tiket E-Ticket
     Route::get('/registrasi/sukses/{id}', [RegistrasiController::class, 'sukses'])->name('registrasi.sukses');
-    Route::get('/registrasi/cetak/{id}', [RegistrasiController::class, 'cetakTiket'])->name('registrasi.cetak');
 });
 
-// Callback TriPay
+// 7. Callback TriPay
 Route::post('/tripay/callback', [RegistrasiController::class, 'callback']);
